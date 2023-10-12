@@ -1,6 +1,6 @@
 <?php
 include_once "functions.php";
-
+session_unset();
 
 
 echo <<<_END
@@ -22,10 +22,10 @@ if(isset($_POST['naam']) && isset($_POST['email']) && isset($_POST['wachtwoord']
 
     $hashpw = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare('INSERT INTO users VALUES(NULL, ?,?,?)');
+    $stmt = $pdo->prepare('INSERT INTO gebruiker VALUES(NULL, ?,?,?)');
     $stmt->bindParam(1, $naam, PDO::PARAM_STR, 20);
     $stmt->bindParam(2, $email, PDO::PARAM_STR, 50);
-    $stmt->bindParam(3, $hashpw, PDO::PARAM_STR, 128);
+    $stmt->bindParam(3, $hashpw, PDO::PARAM_STR, 255);
         
     $stmt->execute([$naam, $email, $hashpw]);
     die("<div>Account created, your name is $naam

@@ -1,5 +1,7 @@
 <?php
 include "functions.php";
+session_unset();
+
 
 echo <<<_END
 <form method='post' action='login.php'>
@@ -19,9 +21,9 @@ if(isset($_POST['naam'])){
         $error = "De velden zijn niet juist ingevuld";
         echo $error;
     } else {
-        $result = queryMysql("SELECT naam, wachtwoord FROM users WHERE naam='$naam' AND wachtwoord='$wachtwoord'");
+        $result = queryMysql("SELECT naam, wachtwoord FROM gebruiker WHERE naam='$naam' AND wachtwoord='$wachtwoord'");
 
-        if($result->rowCount() == 0 ){
+        if(!$result->rowCount() == 0 ){
             $error = "Onjuist wachtwoord/gebruikersnaam, probeer het opnieuw";
             echo $error;
         } else {
